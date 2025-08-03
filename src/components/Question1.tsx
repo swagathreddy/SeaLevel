@@ -14,6 +14,9 @@ const Question1: React.FC<Question1Props> = ({ onComplete }) => {
   const [showLinearQuestion, setShowLinearQuestion] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  // New state for feedback on the linearity question
+  const [linearAnswerFeedback, setLinearAnswerFeedback] = useState<string>('');
+
   const dataPoints = [
     { x: 0, y: 0 },
     { x: 10, y: 3 },
@@ -40,10 +43,15 @@ const Question1: React.FC<Question1Props> = ({ onComplete }) => {
     }
   };
 
+  // Updated function to handle both correct and incorrect answers
   const handleLinearAnswer = (answer: boolean) => {
     setIsLinear(answer);
     if (answer === true) {
+      setLinearAnswerFeedback(''); // Clear previous feedback
       setShowSuccess(true);
+    } else {
+      // Provide feedback for the incorrect "No" answer
+      setLinearAnswerFeedback('✗ Incorrect. The slopes are constant, which is the definition of a linear relationship.');
     }
   };
 
@@ -92,7 +100,7 @@ const Question1: React.FC<Question1Props> = ({ onComplete }) => {
           />
           {slope1 && (
             <div className={`feedback ${slope1Correct ? 'correct' : 'incorrect'}`}>
-              {slope1Correct ? '✓ Correct!' : '✗ Try again (hint: 3/10)'}
+              {slope1Correct ? '✓ Correct!' : '✗ Try again (hint: (3-0)/(10-0))'}
             </div>
           )}
         </div>
@@ -113,14 +121,14 @@ const Question1: React.FC<Question1Props> = ({ onComplete }) => {
           />
           {slope2 && (
             <div className={`feedback ${slope2Correct ? 'correct' : 'incorrect'}`}>
-              {slope2Correct ? '✓ Correct!' : '✗ Try again (hint: 3/10)'}
+              {slope2Correct ? '✓ Correct!' : '✗ Try again (hint: (6-3)/(20-10))'}
             </div>
           )}
         </div>
       </div>
 
       {/* --- ANALYSIS QUESTION --- */}
-      {showLinearQuestion && (
+      {showLinearQuestion && !showSuccess && (
         <div className="prediction-section">
           <h4 style={{ color: '#d97706', marginBottom: '1rem' }}>Step 3: Analyze the Results</h4>
           <p>Both slopes equal 0.3, which means the rate of change is constant.</p>
@@ -139,6 +147,12 @@ const Question1: React.FC<Question1Props> = ({ onComplete }) => {
               No
             </button>
           </div>
+          {/* New element to display the feedback message */}
+          {linearAnswerFeedback && (
+            <div className="feedback incorrect" style={{ marginTop: '1rem', textAlign: 'center' }}>
+              {linearAnswerFeedback}
+            </div>
+          )}
         </div>
       )}
 

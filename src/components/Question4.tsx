@@ -11,6 +11,9 @@ const Question4: React.FC<Question4Props> = ({ onComplete }) => {
   const [seaRiseCorrect, setSeaRiseCorrect] = useState(false);
   const [showHouseQuestion, setShowHouseQuestion] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  
+  // New state for feedback on the house submerging question
+  const [houseAnswerFeedback, setHouseAnswerFeedback] = useState<string>('');
 
   // Data points to establish the trend, without showing the answers
   const dataPoints = [
@@ -30,10 +33,15 @@ const Question4: React.FC<Question4Props> = ({ onComplete }) => {
     }
   };
 
+  // Updated function to handle both correct and incorrect answers
   const handleHouseAnswer = (answer: boolean) => {
     setHouseSubmerged(answer);
     if (answer === true) {
+      setHouseAnswerFeedback(''); // Clear any previous incorrect feedback
       setShowSuccess(true);
+    } else {
+      // Provide feedback for the incorrect "No" answer
+      setHouseAnswerFeedback('✗ Not quite. The sea level rise (1000 cm) is greater than the house altitude (800 cm). So, it will be submerged.');
     }
   };
 
@@ -95,7 +103,7 @@ const Question4: React.FC<Question4Props> = ({ onComplete }) => {
         </div>
       </div>
 
-      {showHouseQuestion && (
+      {showHouseQuestion && !showSuccess && ( // Hide this section once the correct answer is given
         <div className="warning-section">
           <h4 style={{ color: '#dc2626', marginBottom: '1rem' }}>Critical Decision:</h4>
           <div style={{ background: 'white', padding: '1.5rem', borderRadius: '12px', margin: '1rem 0' }}>
@@ -123,6 +131,12 @@ const Question4: React.FC<Question4Props> = ({ onComplete }) => {
               No, it will be safe
             </button>
           </div>
+          {/* New element to display the feedback message */}
+          {houseAnswerFeedback && (
+            <div className="feedback incorrect" style={{ marginTop: '1rem', textAlign: 'center' }}>
+              {houseAnswerFeedback}
+            </div>
+          )}
         </div>
       )}
 
