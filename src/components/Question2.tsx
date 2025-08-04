@@ -126,10 +126,10 @@ const Question2: React.FC<Question2Props> = ({ onComplete }) => {
         <div className="success-message">
           <h3>🎉 Model Complete!</h3>
           <div className="equation-display">
-            $y = 0.3x$
+            y = 0.3x
           </div>
           <p>
-            Our predictive model is <strong>$y = 0.3x$</strong>, where:
+            Our predictive model is <strong>y = 0.3x</strong>, where:
           </p>
           <ul style={{ textAlign: 'left', maxWidth: '500px', margin: '1rem auto' }}>
             <li><strong>y</strong> = sea level rise in centimeters</li>

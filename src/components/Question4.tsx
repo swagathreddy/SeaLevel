@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import InteractiveGraph from './InteractiveGraph';
+import Video from "../Images/Video.mp4"
 
 interface Question4Props {
   onComplete: () => void;
@@ -11,11 +12,8 @@ const Question4: React.FC<Question4Props> = ({ onComplete }) => {
   const [seaRiseCorrect, setSeaRiseCorrect] = useState(false);
   const [showHouseQuestion, setShowHouseQuestion] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  
-  // New state for feedback on the house submerging question
   const [houseAnswerFeedback, setHouseAnswerFeedback] = useState<string>('');
 
-  // Data points to establish the trend, without showing the answers
   const dataPoints = [
     { x: 0, y: 0 },
     { x: 10, y: 200 },
@@ -33,20 +31,19 @@ const Question4: React.FC<Question4Props> = ({ onComplete }) => {
     }
   };
 
-  // Updated function to handle both correct and incorrect answers
   const handleHouseAnswer = (answer: boolean) => {
     setHouseSubmerged(answer);
     if (answer === true) {
-      setHouseAnswerFeedback(''); // Clear any previous incorrect feedback
+      setHouseAnswerFeedback('');
       setShowSuccess(true);
     } else {
-      // Provide feedback for the incorrect "No" answer
       setHouseAnswerFeedback('✗ Not quite. The sea level rise (1000 cm) is greater than the house altitude (800 cm). So, it will be submerged.');
     }
   };
 
   return (
     <div className="question-container">
+      {/* ... (The first part of the component remains the same) ... */}
       <h2 className="question-title">Question 4: A Real-World Consequence</h2>
       
       <p className="question-text">
@@ -103,7 +100,7 @@ const Question4: React.FC<Question4Props> = ({ onComplete }) => {
         </div>
       </div>
 
-      {showHouseQuestion && !showSuccess && ( // Hide this section once the correct answer is given
+      {showHouseQuestion && !showSuccess && (
         <div className="warning-section">
           <h4 style={{ color: '#dc2626', marginBottom: '1rem' }}>Critical Decision:</h4>
           <div style={{ background: 'white', padding: '1.5rem', borderRadius: '12px', margin: '1rem 0' }}>
@@ -131,7 +128,6 @@ const Question4: React.FC<Question4Props> = ({ onComplete }) => {
               No, it will be safe
             </button>
           </div>
-          {/* New element to display the feedback message */}
           {houseAnswerFeedback && (
             <div className="feedback incorrect" style={{ marginTop: '1rem', textAlign: 'center' }}>
               {houseAnswerFeedback}
@@ -143,7 +139,7 @@ const Question4: React.FC<Question4Props> = ({ onComplete }) => {
       {showSuccess && (
         <div className="success-message">
           <h3>🎯 Mission Accomplished!</h3>
-          <div style={{ textAlign: 'left', maxWidth: '600px', margin: '1.5rem auto' }}>
+          <div style={{ textAlign: 'left', maxWidth: '600px', margin: '1.5rem auto', padding: '0 1rem' }}>
             <p><strong>Your Analysis:</strong></p>
             <ul>
               <li>Sea level rise by 2050: <strong>1000 cm (10 meters)</strong></li>
@@ -152,11 +148,33 @@ const Question4: React.FC<Question4Props> = ({ onComplete }) => {
             </ul>
             <p style={{ marginTop: '1.5rem', fontStyle: 'italic' }}>
               This scenario demonstrates how mathematical modeling helps us understand and 
-              prepare for the serious consequences of climate change. Linear equations aren't 
-              just abstract math - they're powerful tools for predicting real-world impacts.
+              prepare for the serious consequences of climate change.
             </p>
           </div>
-          <button className="btn btn-primary" onClick={onComplete}>
+          
+          {/* --- VIDEO SECTION --- */}
+          {/* The horizontal padding (third value) has been removed from the style below */}
+          <div className="video-section" style={{ margin: '2rem auto', maxWidth: '600px' }}>
+            <h4 style={{ textAlign: 'center', marginBottom: '1rem' }}>Visualizing the Consequences</h4>
+            <p style={{ textAlign: 'center', marginBottom: '1rem', color: '#475569', padding: '0 1rem' }}>
+              Sea levels in the Indian Ocean are rising at an alarming rate of 3.3 mm per year. The video below offers a glimpse into what the future could look like along India’s coast over the next century.
+            </p>
+            <video
+              key="coastal-video"
+              width="100%"
+              loop
+              autoPlay
+              muted
+              controls
+              style={{ borderRadius: '12px', objectFit: 'cover', display: 'block' }}
+            >
+              <source src={Video} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          {/* --- END OF VIDEO SECTION --- */}
+          
+          <button className="btn btn-primary" onClick={onComplete} style={{marginTop: '1.5rem'}}>
             View Conclusion →
           </button>
         </div>
