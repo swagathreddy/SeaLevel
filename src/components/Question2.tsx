@@ -45,7 +45,7 @@ const Question2: React.FC<Question2Props> = ({ onComplete }) => {
       <h2 className="question-title">Question 2: Build the Predictive Model</h2>
       
       <p className="question-text">
-        Now that we've confirmed the relationship is linear, let's build the predictive model in the form $y = mx + b$.
+        Now that we've confirmed the relationship is linear, let's build the predictive model in the form y = mx + b.
       </p>
 
       <p className="question-text">

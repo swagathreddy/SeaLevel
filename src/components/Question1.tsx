@@ -56,8 +56,7 @@ const Question1: React.FC<Question1Props> = ({ onComplete }) => {
       <h2 className="question-title">Question 1: Verify the Linearity</h2>
       
       <p className="question-text">
-        🌊 Scientists have collected the following data about sea level rise. Let's dive into the mathematics 
-        and verify if the relationship is linear by checking if the slope (rate of change) is constant between different points.
+        🌊 Scientists have collected the following data about sea level rise. Verify if the relationship is linear by checking if the slope (rate of change) is constant between different points.
       </p>
 
       <div className="data-table">
